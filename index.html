@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💼 LUNAQASH AGENCIES </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-menu li a:hover::before {
+            left: 100%;
+        }
+
+        .nav-menu li a:hover {
+            background: #ffd700;
+            color: #333;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ffd700;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: bounce 2s infinite;
+        }
+
+        .hero .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .earning-card {
+            background: linear-gradient(145deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .earning-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+        }
+
+        .earning-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .earning-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .earning-card .amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e53e3e;
+            margin-bottom: 0.5rem;
+        }
+
+        .affiliation-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 2px solid #ffd700;
+        }
+
+        .affiliation-section h2 {
+            color: #ffd700;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .level-card {
+            background: linear-gradient(145deg, #48bb78, #38a169);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .level-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-card .bonus {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .formations-section {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            color: white;
+        }
+
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .formation-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #ffd700;
+        }
+
+        .proof-section {
+            text-align: center;
+            background: linear-gradient(145deg, #e53e3e, #c53030);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(229, 62, 62, 0.3);
+        }
+
+        .proof-amount {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: pulse 2s infinite;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            color: #333;
+            padding: 1.5rem 3rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            animation: bounce 2s infinite;
+            margin: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #25d366;
+            color: white;
+            padding: 1.5rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            margin: 1rem;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        .price-highlight {
+            background: rgba(255, 215, 0, 0.2);
+            border: 3px solid #ffd700;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .price-highlight h3 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-highlight .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logoGlow {
+            0% {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255, 215, 0, 0.3);
+            }
+            100% {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .slide-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .slide-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                border-top: 2px solid #ffd700;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0);
+            }
+
+            .nav-menu li {
+                animation: slideInRight 0.5s ease-out forwards;
+                opacity: 0;
+            }
+
+            .nav-menu.active li:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            .nav-menu.active li:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .nav-menu.active li:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+
+            .nav-menu.active li:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+
+            .nav-menu li a {
+                font-size: 1.2rem;
+                padding: 1rem 2rem;
+                border: 2px solid #ffd700;
+                border-radius: 30px;
+                background: rgba(255, 215, 0, 0.1);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .proof-amount {
+                font-size: 2.5rem;
+            }
+            
+            .earnings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .levels {
+                grid-template-columns: 1fr;
+            }
+            
+            .formations-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .formations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">💼 LUNAQASH AGENCIES</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#gains">Mes Gains</a></li>
+                <li><a href="#affiliation">Affiliation</a></li>
+                <li><a href="#contact">Commencer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="accueil" class="hero">
+            <h1 class="floating">💼 Le Business, c'est <span class="highlight sparkle">SIMPLE</span> ! 🔥</h1>
+            <p class="slide-left">Tu démarres avec <strong>3 500 FCFA</strong> une seule fois, tu bosses <strong>2h/jour</strong> depuis ton téléphone 📱</p>
+        </section>
+
+        <section id="gains" class="earnings-grid">
+            <div class="earning-card floating">
+                <div class="icon sparkle">🎥</div>
+                <h3>Regarde des Vidéos</h3>
+                <div class="amount">150 - 240 FCFA</div>
+                <p>Par jour en regardant du contenu</p>
+            </div>
+
+            <div class="earning-card floating" style="animation-delay: 0.2s;">
+                <div class="icon sparkle">🧠</div>
+                <h3>Réponds aux Questions</h3>
+                <div class="amount">300 - 500 FCFA</div>
+                <p>Questions simples quotidiennes</p>
+            </div>
+
+            <div class="earning-card floating" style="animation-delay: 0.4s;">
+                <div class="icon sparkle">🎯</div>
+                <h3>Spin Game</h3>
+                <div class="amount">Jusqu'à 5 000 FCFA</div>
+                <p>Jeu quotidien avec gros gains</p>
+            </div>
+        </section>
+
+        <section class="formations-section">
+            <h2 style="color: #ffd700; text-align: center; font-size: 2.2rem; margin-bottom: 2rem;">
+                🎁 BONUS : 12 FORMATIONS DIGITALES 100% GRATUITES
+            </h2>
+            <div class="formations-grid">
+                <div class="formation-item">📊 Trading Forex</div>
+                <div class="formation-item">🛒 Vente en Ligne</div>
+                <div class="formation-item">📈 TikTok & Instagram</div>
+                <div class="formation-item">🤖 Intelligence Artificielle</div>
+                <div class="formation-item">🎬 CapCut & Canva</div>
+                <div class="formation-item">💰 Augmentez tes vues whatsapp(100-1000 vues)</div>
+                <div class="formation-item">📱 Business Communauty manager</div>
+                <div class="formation-item">🎯 Publicité Facebook</div>
+                <div class="formation-item">📧 Astuces Marketing</div>
+                <div class="formation-item">🌐 Comment lancer des campagnes publicitaires cibles</div>
+                <div class="formation-item">📊 Creer des comptes Tiktok monetiser</div>
+                <div class="formation-item">🚀 Booster des comptes Tiktok/Instragram</div>
+            </div>
+        </section>
+
+        <section id="affiliation" class="affiliation-section">
+            <h2>💥 Le VRAI Secret : l'AFFILIATION PUISSANTE</h2>
+            <p style="color: white; font-size: 1.3rem; text-align: center; margin-bottom: 2rem;">
+                🔗 Tu invites quelqu'un (peu importe son pays) → <strong style="color: #ffd700;">1 700 FCFA DIRECT</strong> dans ton compte !
+            </p>
+            
+            <div class="levels">
+                <div class="level-card">
+                    <h4>✅ Niveau 1</h4>
+                    <p>Tu invites Sarah</p>
+                    <div class="bonus">1 700 FCFA</div>
+                </div>
+                
+                <div class="level-card">
+                    <h4>✅ Niveau 2</h4>
+                    <p>Sarah invite Kevin</p>
+                    <div class="bonus">800 FCFA</div>
+                </div>
+                
+                <div class="level-card">
+                    <h4>✅ Niveau 3</h4>
+                    <p>Kevin invite Nadine</p>
+                    <div class="bonus">400 FCFA</div>
+                </div>
+            </div>
+            
+            <p style="color: #ffd700; font-size: 1.4rem; text-align: center; font-weight: bold;">
+                💡 Même si tu ne connais pas Kevin ni Nadine → TU ES PAYÉ quand même !
+            </p>
+        </section>
+
+        <section class="proof-section">
+            <h2>🌍 Disponible PARTOUT en Afrique</h2>
+            <p style="font-size: 1.3rem; margin: 1rem 0;">💸 Moi-même, j'ai retiré :</p>
+            <div class="proof-amount">416 000 FCFA</div>
+            <p style="font-size: 1.2rem;">en seulement <strong>12 jours</strong> (preuves à l'appui !)</p>
+        </section>
+
+        <div class="price-highlight">
+            <h3>🚀 Investissement Unique</h3>
+            <div class="price">3 500 FCFA</div>
+            <p style="color: white; font-size: 1.2rem;">Une seule fois pour créer ton compte ✅</p>
+        </div>
+
+        <section id="contact" class="cta-section">
+            <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 2rem;">Tu veux commencer ?</h2>
+            <p style="color: white; font-size: 1.3rem; margin-bottom: 2rem;">
+                Tu as juste besoin de <strong>3 500 FCFA</strong> pour créer ton compte ✅
+            </p>
+            
+            <a href="https://wa.me/237692446850" class="whatsapp-button" target="_blank">
+                📩 Écris "GO" maintenant
+            </a>
+            
+            <p style="color: #ffd700; font-size: 1.2rem; margin-top: 2rem;">
+                et rejoins la communauté des vrais marketers ! 🚀💼
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // Menu hamburger pour mobile
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Fermer le menu quand on clique ailleurs
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Animation au scroll avec plus d'effets
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Ajouter des classes d'animation aléatoires
+                    const animations = ['fadeInUp', 'slideInLeft', 'slideInRight'];
+                    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                    entry.target.style.animation = `${randomAnimation} 0.8s ease-out forwards`;
+                    
+                    // Ajouter un effet de scintillement aux éléments importants
+                    if (entry.target.querySelector('.amount') || entry.target.querySelector('.bonus')) {
+                        entry.target.classList.add('sparkle');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.earning-card, .level-card, .formation-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling amélioré
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Ajouter un effet de highlight à la section visitée
+                    target.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        target.style.transform = 'scale(1)';
+                    }, 300);
+                }
+            });
+        });
+
+        // Animation du montant avec effet de compteur
+        function animateNumber(element, finalNumber) {
+            let current = 0;
+            const increment = finalNumber / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= finalNumber) {
+                    current = finalNumber;
+                    clearInterval(timer);
+                    // Ajouter un effet de pulsation à la fin
+                    element.style.animation = 'pulse 0.5s ease-in-out';
+                }
+                element.textContent = Math.floor(current).toLocaleString() + ' FCFA';
+            }, 20);
+        }
+
+        // Observer pour le montant des preuves
+        const proofAmount = document.querySelector('.proof-amount');
+        const proofObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateNumber(entry.target, 416000);
+                    proofObserver.unobserve(entry.target);
+                }
+            });
+        });
+        proofObserver.observe(proofAmount);
+
+        // Effet de parallaxe leger pour le background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            document.body.style.backgroundPosition = `center ${rate}px`;
+        });
+
+        // Animation des boutons CTA
+        document.querySelectorAll('.cta-button, .whatsapp-button').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.animation = 'bounce 0.6s ease-in-out';
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.animation = '';
+            });
+        });
+
+        // Effet de typing pour les textes importants
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        // Appliquer l'effet typing aux éléments importants quand ils deviennent visibles
+        const typingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.typed) {
+                    const originalText = entry.target.textContent;
+                    typeWriter(entry.target, originalText, 50);
+                    entry.target.dataset.typed = 'true';
+                }
+            });
+        });
+
+        // Ajouter des effets de particules au survol des cartes
+        document.querySelectorAll('.earning-card, .level-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.05)';
+                card.style.boxShadow = '0 20px 40px rgba(255, 215, 0, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>
